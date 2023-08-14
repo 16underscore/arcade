@@ -1,0 +1,19 @@
+[package]
+edition = "2021"
+name = "arcade"
+version = "0.1.0"
+
+[features]
+client = []
+default = ["client", "server"]
+server = []
+
+[dependencies]
+bevy = { features = ["dynamic_linking"], version = "*" }
+bevy-inspector-egui = "*"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
