@@ -55,54 +55,47 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 }
 
 fn input(
+	gamepads: Res<Gamepads>,
+	axes: Res<Axis<GamepadAxis>>,
 	windows: Query<&Window, With<PrimaryWindow>>,
 	keyboard: Res<Input<KeyCode>>,
-	mut player_transform: Query<&mut Transform, (With<Player>, Without<Camera3d>)>,
-	mut camera_transform: Query<&mut Transform, (With<Camera3d>, Without<Player>)>,
+	mut transforms: Query<&mut Transform, Or<(With<Player>, With<Camera3d>)>>,
 ) {
 	let window = windows.single();
 	if let Some(position) = window.cursor_position() {
-		let midwidth = window.width() / 2.0;
-		let midheight = window.height() / 2.0;
-		let horizontal = (position.x - midwidth) / midwidth;
-		let vertical = (position.y - midheight) / midheight;
-		for mut transform in &mut player_transform {
-			if keyboard.pressed(KeyCode::D) {
-				transform.translation.x += vertical;
-				transform.translation.z += horizontal;
-			}
-			if keyboard.pressed(KeyCode::S) {
-				transform.translation.x += vertical;
-				transform.translation.z -= horizontal;
+		let horizontal = position.x - window.width() / 2.0;
+		let vertical = position.y - window.height() / 2.0;
+		let direction = Vec2::new(horizontal, -vertical);
+		let direction = direction.normalize_or_zero();
+		for mut transform in &mut transforms {
+			if keyboard.pressed(KeyCode::W) {
+				transform.translation.x += direction.x;
+				transform.translation.z += direction.y;
 			}
 			if keyboard.pressed(KeyCode::A) {
-				transform.translation.x -= vertical;
-				transform.translation.z -= horizontal;
+				transform.translation.x += direction.x;
+				transform.translation.z -= direction.y;
 			}
-			if keyboard.pressed(KeyCode::W) {
-				transform.translation.x -= vertical;
-				transform.translation.z += horizontal;
+			if keyboard.pressed(KeyCode::S) {
+				transform.translation.x -= direction.x;
+				transform.translation.z -= direction.y;
 			}
-			let target = transform.translation + Vec3::new(vertical, 0.0, -horizontal);
-			transform.look_at(target, Vec3::Y);
+			if keyboard.pressed(KeyCode::D) {
+				transform.translation.x -= direction.x;
+				transform.translation.z += direction.y;
+			}
 		}
-		for mut transform in &mut camera_transform {
-			if keyboard.pressed(KeyCode::D) {
-				transform.translation.x += vertical;
-				transform.translation.z += horizontal;
-			}
-			if keyboard.pressed(KeyCode::S) {
-				transform.translation.x += vertical;
-				transform.translation.z -= horizontal;
-			}
-			if keyboard.pressed(KeyCode::A) {
-				transform.translation.x -= vertical;
-				transform.translation.z -= horizontal;
-			}
-			if keyboard.pressed(KeyCode::W) {
-				transform.translation.x -= vertical;
-				transform.translation.z += horizontal;
-			}
+	}
+	for gamepad in gamepads.iter() {
+		let left_stick_x = axes
+			.get(GamepadAxis::new(gamepad, GamepadAxisType::LeftStickX))
+			.unwrap_or_default();
+		let left_stick_y = axes
+			.get(GamepadAxis::new(gamepad, GamepadAxisType::LeftStickY))
+			.unwrap_or_default();
+		for mut transform in &mut transforms {
+			transform.translation.x += left_stick_y;
+			transform.translation.z += left_stick_x;
 		}
 	}
 }
