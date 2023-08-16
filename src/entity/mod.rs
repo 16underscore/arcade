@@ -1,6 +1,9 @@
 mod player;
 pub use player::Player;
 
+mod vehicle;
+pub use vehicle::Vehicle;
+
 use bevy::prelude::*;
 
 #[derive(Component)]

@@ -1,6 +1,6 @@
 mod ui;
 
-use crate::entity::{Health, Player, Speed};
+use crate::entity::{Health, Player, Speed, Vehicle};
 
 use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
@@ -11,6 +11,7 @@ pub fn main() {
 		.add_plugins(WorldInspectorPlugin::new())
 		.add_systems(Startup, setup)
 		.add_systems(Update, input)
+		.add_systems(Update, summon_vehicle)
 		.run();
 }
 
@@ -23,7 +24,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		.insert(Name::new("Ground"));
 	commands
 		.spawn((
-			Player,
+			Player::new(100),
 			Speed(0.25),
 			Health(4.0),
 			SceneBundle {
@@ -39,6 +40,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			..default()
 		})
 		.insert(Name::new("Cannon"));
+
 	commands
 		.spawn(DirectionalLightBundle {
 			directional_light: DirectionalLight {
@@ -92,6 +94,32 @@ fn input(
 		for mut transform in &mut transforms {
 			transform.translation.x += x * speed;
 			transform.translation.z += z * speed;
+		}
+	}
+}
+
+fn summon_vehicle(
+	asset_server: Res<AssetServer>,
+	mut commands: Commands,
+	keyboard: Res<Input<KeyCode>>,
+	mut players: Query<(&mut Player, &Transform)>,
+) {
+	let (mut player, transform) = players.single_mut();
+	if keyboard.just_pressed(KeyCode::Space) {
+		if player.get_money() >= 20 {
+			player.decrease_money(20);
+			commands
+				.spawn((
+					Vehicle,
+					Health(40.0),
+					Speed(0.25),
+					SceneBundle {
+						scene: asset_server.load("tank.glb#Scene0"),
+						transform: transform.clone(),
+						..default()
+					},
+				))
+				.insert(Name::new("Tank"));
 		}
 	}
 }
