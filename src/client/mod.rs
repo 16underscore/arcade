@@ -1,4 +1,6 @@
-use crate::entity::Player;
+mod ui;
+
+use crate::entity::{Health, Player, Speed};
 
 use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
@@ -22,6 +24,8 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 	commands
 		.spawn((
 			Player,
+			Speed(0.25),
+			Health(4.0),
 			SceneBundle {
 				scene: asset_server.load("player.glb#Scene0"),
 				..Default::default()
@@ -60,29 +64,20 @@ fn input(
 	windows: Query<&Window, With<PrimaryWindow>>,
 	keyboard: Res<Input<KeyCode>>,
 	mut transforms: Query<&mut Transform, Or<(With<Player>, With<Camera3d>)>>,
+	speeds: Query<&Speed, With<Player>>,
 ) {
 	let window = windows.single();
+	let Speed(speed) = speeds.single();
 	if let Some(position) = window.cursor_position() {
-		let horizontal = position.x - window.width() / 2.0;
-		let vertical = position.y - window.height() / 2.0;
-		let direction = Vec2::new(horizontal, -vertical);
-		let direction = direction.normalize_or_zero();
+		let halfwidth = window.width() / 2.0;
+		let halfheight = window.height() / 2.0;
+		let horizontal = (position.x - halfwidth) / halfwidth;
+		let vertical = (position.y - halfheight) / halfheight;
+		let (x, z) = calc(vertical, horizontal, 4.0);
 		for mut transform in &mut transforms {
 			if keyboard.pressed(KeyCode::W) {
-				transform.translation.x += direction.x;
-				transform.translation.z += direction.y;
-			}
-			if keyboard.pressed(KeyCode::A) {
-				transform.translation.x += direction.x;
-				transform.translation.z -= direction.y;
-			}
-			if keyboard.pressed(KeyCode::S) {
-				transform.translation.x -= direction.x;
-				transform.translation.z -= direction.y;
-			}
-			if keyboard.pressed(KeyCode::D) {
-				transform.translation.x -= direction.x;
-				transform.translation.z += direction.y;
+				transform.translation.x -= x * speed;
+				transform.translation.z += z * speed;
 			}
 		}
 	}
@@ -93,9 +88,19 @@ fn input(
 		let left_stick_y = axes
 			.get(GamepadAxis::new(gamepad, GamepadAxisType::LeftStickY))
 			.unwrap_or_default();
+		let (x, z) = calc(left_stick_y, left_stick_x, 1.25);
 		for mut transform in &mut transforms {
-			transform.translation.x += left_stick_y;
-			transform.translation.z += left_stick_x;
+			transform.translation.x += x * speed;
+			transform.translation.z += z * speed;
 		}
 	}
+}
+
+fn calc(v: f32, h: f32, cursor_speed_distance: f32) -> (f32, f32) {
+	let a = v * cursor_speed_distance;
+	let b = h * cursor_speed_distance;
+	let m = if a < 0.0 { -1.0 } else { 1.0 };
+	let n = if b < 0.0 { -1.0 } else { 1.0 };
+	let x = f32::max(m * a, n * b).min(1.0) / (m * a + n * b);
+	(x * a, x * b)
 }
