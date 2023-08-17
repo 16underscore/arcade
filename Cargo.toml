@@ -11,6 +11,7 @@ server = []
 [dependencies]
 bevy = { features = ["dynamic_linking"], version = "*" }
 bevy-inspector-egui = "*"
+bevy_rapier3d = "*"
 
 [profile.dev]
 opt-level = 1

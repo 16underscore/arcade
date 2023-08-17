@@ -1,4 +1,5 @@
 use bevy::{prelude::*, window::PrimaryWindow};
+use bevy_rapier3d::prelude::*;
 
 use crate::entity::{Health, Player, Speed, Vehicle};
 
@@ -11,7 +12,8 @@ struct OnGameScreen;
 
 impl Plugin for GamePlugin {
 	fn build(&self, app: &mut App) {
-		app.add_systems(OnEnter(AppState::Game), setup)
+		app.add_plugins(RapierPhysicsPlugin::<NoUserData>::default())
+			.add_systems(OnEnter(AppState::Game), setup)
 			.add_systems(Update, input.run_if(in_state(AppState::Game)))
 			.add_systems(Update, summon_vehicle.run_if(in_state(AppState::Game)))
 			.add_systems(
@@ -30,10 +32,13 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			},
 			OnGameScreen,
 		))
+		.insert(RigidBody::Fixed)
+		.insert(Collider::cuboid(50.0, 0.1, 50.0))
 		.insert(Name::new("Ground"));
 	commands
 		.spawn((
 			Player::new(100),
+			RigidBody::Dynamic,
 			Speed(0.25),
 			Health(4.0),
 			SceneBundle {
@@ -42,9 +47,11 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			},
 			OnGameScreen,
 		))
+		.insert(Collider::cylinder(1.0, 1.0))
 		.insert(Name::new("Player"));
 	commands
 		.spawn((
+			RigidBody::Fixed,
 			SceneBundle {
 				scene: asset_server.load("cannon.glb#Scene0"),
 				transform: Transform::from_xyz(10.0, 0.0, 5.0),
@@ -52,6 +59,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			},
 			OnGameScreen,
 		))
+		.insert(Collider::cuboid(2.0, 2.0, 2.0))
 		.insert(Name::new("Cannon"));
 
 	commands
