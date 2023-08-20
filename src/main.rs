@@ -5,6 +5,7 @@ mod ui;
 use bevy::prelude::*;
 #[cfg(debug_assertions)]
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use bevy_rapier3d::render::RapierDebugRenderPlugin;
 
 use self::{game::GamePlugin, ui::MenuPlugin};
 
@@ -36,6 +37,9 @@ impl Plugin for DebugPlugin {
 	#[allow(unused_variables)]
 	fn build(&self, app: &mut App) {
 		#[cfg(debug_assertions)]
-		app.add_plugins(WorldInspectorPlugin::new());
+		app.add_plugins((
+			WorldInspectorPlugin::new(),
+			RapierDebugRenderPlugin::default(),
+		));
 	}
 }
