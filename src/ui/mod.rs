@@ -1,4 +1,10 @@
+mod select_map;
+mod title;
+
 use bevy::prelude::*;
+
+use self::select_map::SelectMapScreen;
+use self::title::TitleScreen;
 
 use super::AppState;
 
@@ -9,31 +15,38 @@ const HOVERED_PRESSED_BUTTON: Color = Color::rgb(0.125, 0.125, 0.125);
 const NORMAL_BUTTON: Color = Color::rgb(0.25, 0.25, 0.25);
 const PRESSED_BUTTON: Color = HOVERED_PRESSED_BUTTON;
 
-pub struct MenuPlugin;
-
 #[derive(Component)]
 struct OnMenuScreen;
+
+pub struct MenuPlugin;
 
 #[derive(Component)]
 struct SelectedOption;
 
-#[derive(Component)]
-enum MenuButtonAction {
-	Play,
+#[derive(Clone, Debug, Default, Eq, Hash, PartialEq, States)]
+enum MenuState {
+	None,
+	#[default]
+	Title,
+	SelectMap,
 }
 
 impl Plugin for MenuPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_systems(OnEnter(AppState::Menu), setup_ui)
+		app.add_plugins(TitleScreen)
+			.add_plugins(SelectMapScreen)
+			.add_state::<MenuState>()
+			.add_systems(OnEnter(super::AppState::Menu), setup_ui)
+			.add_systems(Update, button_system.run_if(in_state(AppState::Menu)))
 			.add_systems(
-				Update,
-				(menu_action, button_system).run_if(in_state(AppState::Menu)),
-			)
-			.add_systems(
-				OnExit(AppState::Menu),
-				super::despawn_screen::<OnMenuScreen>,
+				OnExit(super::AppState::Menu),
+				crate::despawn_screen::<OnMenuScreen>,
 			);
 	}
+}
+
+fn setup_ui(mut commands: Commands) {
+	commands.spawn((Camera2dBundle::default(), OnMenuScreen));
 }
 
 fn button_system(
@@ -48,92 +61,6 @@ fn button_system(
 			(Interaction::Hovered, Some(_)) => HOVERED_PRESSED_BUTTON.into(),
 			(Interaction::Hovered, None) => HOVERED_BUTTON.into(),
 			(Interaction::None, None) => NORMAL_BUTTON.into(),
-		}
-	}
-}
-
-fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
-	commands.spawn((Camera2dBundle::default(), OnMenuScreen));
-	let button_style = Style {
-		width: Val::Px(255.0),
-		height: Val::Px(63.0),
-		margin: UiRect::all(Val::Px(31.0)),
-		justify_content: JustifyContent::Center,
-		align_items: AlignItems::Center,
-		..default()
-	};
-	let button_text_style = TextStyle {
-		font_size: 31.0,
-		color: Color::GRAY,
-		..default()
-	};
-
-	commands
-		.spawn((
-			NodeBundle {
-				style: Style {
-					width: Val::Percent(100.0),
-					align_items: AlignItems::Center,
-					justify_content: JustifyContent::Center,
-					..default()
-				},
-				background_color: BACKGROUND_COLOR.into(),
-				..default()
-			},
-			OnMenuScreen,
-		))
-		.with_children(|parent| {
-			parent
-				.spawn(NodeBundle {
-					style: Style {
-						flex_direction: FlexDirection::Column,
-						align_items: AlignItems::Center,
-						padding: UiRect::horizontal(Val::Px(100.0)),
-						..default()
-					},
-					background_color: GRAY.into(),
-					..default()
-				})
-				.with_children(|parent| {
-					parent.spawn(ImageBundle {
-						style: Style {
-							width: Val::Px(384.0),
-							height: Val::Px(96.0),
-							margin: UiRect::all(Val::Px(50.0)),
-							..default()
-						},
-						image: UiImage::new(asset_server.load("gui/arcade.png")),
-						..default()
-					});
-
-					parent
-						.spawn((
-							ButtonBundle {
-								style: button_style.clone(),
-								background_color: GRAY.into(),
-								..default()
-							},
-							MenuButtonAction::Play,
-						))
-						.with_children(|parent| {
-							parent.spawn(TextBundle::from_section("Play", button_text_style.clone()));
-						});
-				});
-		});
-}
-
-fn menu_action(
-	interaction_query: Query<
-		(&Interaction, &MenuButtonAction),
-		(Changed<Interaction>, With<Button>),
-	>,
-	mut app_state: ResMut<NextState<AppState>>,
-) {
-	for (interaction, menu_button_action) in &interaction_query {
-		if *interaction == Interaction::Pressed {
-			match menu_button_action {
-				MenuButtonAction::Play => app_state.set(AppState::Game),
-			}
 		}
 	}
 }
