@@ -52,7 +52,7 @@ fn button_system(
 	}
 }
 
-fn setup_ui(mut commands: Commands) {
+fn setup_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
 	commands.spawn((Camera2dBundle::default(), OnMenuScreen));
 	let button_style = Style {
 		width: Val::Px(255.0),
@@ -95,20 +95,16 @@ fn setup_ui(mut commands: Commands) {
 					..default()
 				})
 				.with_children(|parent| {
-					parent.spawn(
-						TextBundle::from_section(
-							"Menu",
-							TextStyle {
-								font_size: 80.0,
-								color: Color::GRAY,
-								..default()
-							},
-						)
-						.with_style(Style {
+					parent.spawn(ImageBundle {
+						style: Style {
+							width: Val::Px(384.0),
+							height: Val::Px(96.0),
 							margin: UiRect::all(Val::Px(50.0)),
 							..default()
-						}),
-					);
+						},
+						image: UiImage::new(asset_server.load("gui/arcade.png")),
+						..default()
+					});
 
 					parent
 						.spawn((

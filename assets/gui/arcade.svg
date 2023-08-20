@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="3072"
+   height="768"
+   viewBox="0 0 3072 768"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="arcade.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     shape-rendering="auto"
+     inkscape:zoom="0.26142019"
+     inkscape:cx="1183.9177"
+     inkscape:cy="267.76814"
+     inkscape:window-width="1916"
+     inkscape:window-height="1036"
+     inkscape:window-x="1920"
+     inkscape:window-y="42"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer4" />
+  <defs
+     id="defs1">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Cross Blur"
+       id="filter651"
+       x="-0.1000625"
+       y="-0.0600375"
+       width="1.200125"
+       height="1.120075">
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix"
+         id="feColorMatrix650" />
+      <feComposite
+         in="SourceGraphic"
+         in2="colormatrix"
+         operator="arithmetic"
+         k2="1"
+         k3="10"
+         k4="0"
+         result="composite"
+         id="feComposite650" />
+      <feGaussianBlur
+         stdDeviation="16 0.01"
+         result="blur1"
+         id="feGaussianBlur650" />
+      <feGaussianBlur
+         in="composite"
+         stdDeviation="0.01 16"
+         result="blur2"
+         id="feGaussianBlur651" />
+      <feBlend
+         in="blur2"
+         in2="blur1"
+         mode="darken"
+         result="blend"
+         id="feBlend651" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Cross Blur"
+       id="filter653"
+       x="-0.1000625"
+       y="-0.0600375"
+       width="1.200125"
+       height="1.120075">
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix"
+         id="feColorMatrix651" />
+      <feComposite
+         in="SourceGraphic"
+         in2="colormatrix"
+         operator="arithmetic"
+         k2="1"
+         k3="10"
+         k4="0"
+         result="composite"
+         id="feComposite651" />
+      <feGaussianBlur
+         stdDeviation="16 0.01"
+         result="blur1"
+         id="feGaussianBlur652" />
+      <feGaussianBlur
+         in="composite"
+         stdDeviation="0.01 16"
+         result="blur2"
+         id="feGaussianBlur653" />
+      <feBlend
+         in="blur2"
+         in2="blur1"
+         mode="darken"
+         result="blend"
+         id="feBlend653" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Cross Blur"
+       id="filter655"
+       x="-0.1000625"
+       y="-0.0600375"
+       width="1.200125"
+       height="1.120075">
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix"
+         id="feColorMatrix653" />
+      <feComposite
+         in="SourceGraphic"
+         in2="colormatrix"
+         operator="arithmetic"
+         k2="1"
+         k3="10"
+         k4="0"
+         result="composite"
+         id="feComposite653" />
+      <feGaussianBlur
+         stdDeviation="16 0.01"
+         result="blur1"
+         id="feGaussianBlur654" />
+      <feGaussianBlur
+         in="composite"
+         stdDeviation="0.01 16"
+         result="blur2"
+         id="feGaussianBlur655" />
+      <feBlend
+         in="blur2"
+         in2="blur1"
+         mode="darken"
+         result="blend"
+         id="feBlend655" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Cross Blur"
+       id="filter657"
+       x="-0.1000625"
+       y="-0.060037498"
+       width="1.200125"
+       height="1.120075">
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix"
+         id="feColorMatrix655" />
+      <feComposite
+         in="SourceGraphic"
+         in2="colormatrix"
+         operator="arithmetic"
+         k2="1"
+         k3="10"
+         k4="0"
+         result="composite"
+         id="feComposite655" />
+      <feGaussianBlur
+         stdDeviation="16 0.01"
+         result="blur1"
+         id="feGaussianBlur656" />
+      <feGaussianBlur
+         in="composite"
+         stdDeviation="0.01 16"
+         result="blur2"
+         id="feGaussianBlur657" />
+      <feBlend
+         in="blur2"
+         in2="blur1"
+         mode="darken"
+         result="blend"
+         id="feBlend657" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Cross Blur"
+       id="filter659"
+       x="-0.1000625"
+       y="-0.0600375"
+       width="1.200125"
+       height="1.120075">
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix"
+         id="feColorMatrix657" />
+      <feComposite
+         in="SourceGraphic"
+         in2="colormatrix"
+         operator="arithmetic"
+         k2="1"
+         k3="10"
+         k4="0"
+         result="composite"
+         id="feComposite657" />
+      <feGaussianBlur
+         stdDeviation="16 0.01"
+         result="blur1"
+         id="feGaussianBlur658" />
+      <feGaussianBlur
+         in="composite"
+         stdDeviation="0.01 16"
+         result="blur2"
+         id="feGaussianBlur659" />
+      <feBlend
+         in="blur2"
+         in2="blur1"
+         mode="darken"
+         result="blend"
+         id="feBlend659" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Cross Blur"
+       id="filter661"
+       x="-0.1000625"
+       y="-0.0600375"
+       width="1.200125"
+       height="1.120075">
+      <feColorMatrix
+         in="SourceGraphic"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -0.2125 -0.7154 -0.0721 1 0 "
+         result="colormatrix"
+         id="feColorMatrix659" />
+      <feComposite
+         in="SourceGraphic"
+         in2="colormatrix"
+         operator="arithmetic"
+         k2="1"
+         k3="10"
+         k4="0"
+         result="composite"
+         id="feComposite659" />
+      <feGaussianBlur
+         stdDeviation="16 0.01"
+         result="blur1"
+         id="feGaussianBlur660" />
+      <feGaussianBlur
+         in="composite"
+         stdDeviation="0.01 16"
+         result="blur2"
+         id="feGaussianBlur661" />
+      <feBlend
+         in="blur2"
+         in2="blur1"
+         mode="darken"
+         result="blend"
+         id="feBlend661" />
+    </filter>
+  </defs>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="" />
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="glow"
+     transform="translate(0,-8.3829747)"
+     inkscape:highlight-color="#4b0082">
+    <g
+       id="layer2-9"
+       inkscape:label="arcadE"
+       transform="matrix(1,0,-0.19999999,1,2095.6,169.38298)"
+       style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none;filter:url(#filter661)">
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-7-3-2"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-9-0-0"
+         width="256"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-9-0-4-6"
+         width="256"
+         height="128"
+         x="701"
+         y="415"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-2-2-6-8"
+         width="128"
+         height="128"
+         x="701"
+         y="158.99998"
+         inkscape:label="center_rect" />
+    </g>
+    <g
+       id="layer2-6-9"
+       inkscape:label="arcaDe"
+       transform="matrix(1,0,-0.19999999,1,1583.6,169.38298)"
+       style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none;filter:url(#filter659)">
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-7-7-2"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-5-5-6-6"
+         width="128"
+         height="386"
+         x="829"
+         y="31"
+         inkscape:label="right_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-9-5-6"
+         width="128"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-2-2-69-4"
+         width="128"
+         height="128"
+         x="701"
+         y="415"
+         inkscape:label="bottom_rect" />
+    </g>
+    <g
+       id="layer2-61-9"
+       inkscape:label="arcAde"
+       transform="matrix(1,0,-0.19999999,1,540.90134,71.798338)"
+       style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none;filter:url(#filter657)">
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-4-5"
+         width="128"
+         height="640"
+         x="1123.2156"
+         y="0.58463669"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-5-43-0"
+         width="128"
+         height="384"
+         x="1379.2156"
+         y="0.58463669"
+         inkscape:label="right_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-0-4"
+         width="128"
+         height="128"
+         x="1251.2156"
+         y="0.58463669"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-2-7-8"
+         width="128"
+         height="128"
+         x="1251.2156"
+         y="256.58466"
+         inkscape:label="center_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect4-8-7"
+         width="128"
+         height="256"
+         x="1379.2156"
+         y="384.58466"
+         inkscape:label="bottom_right_rect" />
+    </g>
+    <g
+       id="layer2-2-1"
+       inkscape:label="arCade"
+       transform="matrix(1,0,-0.19999999,1,559.59999,169.38298)"
+       style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none;filter:url(#filter655)">
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-3-7"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-1-2"
+         width="256"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-2-29-7"
+         width="256"
+         height="128"
+         x="701"
+         y="415"
+         inkscape:label="bottom_rect" />
+    </g>
+    <g
+       id="layer2-7-2"
+       inkscape:label="aRcade"
+       transform="matrix(1,0,-0.19999999,1,47.599995,169.38298)"
+       style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none;filter:url(#filter653)">
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-78-2"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-5-4-6"
+         width="128"
+         height="256"
+         x="829"
+         y="-97"
+         inkscape:label="top_right_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-5-4-2-1"
+         width="128"
+         height="256"
+         x="829"
+         y="287"
+         inkscape:label="bottom_right_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-5-0"
+         width="128"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-2-0-6"
+         width="128"
+         height="128"
+         x="701"
+         y="159"
+         inkscape:label="center_rect" />
+    </g>
+    <g
+       inkscape:label="Arcade"
+       id="layer1-1"
+       transform="matrix(1,0,-0.19999999,1,127.99999,72.382978)"
+       style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none;filter:url(#filter651)">
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-59"
+         width="128"
+         height="640"
+         x="0"
+         y="0"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect1-5-49"
+         width="128"
+         height="384"
+         x="256"
+         y="0"
+         inkscape:label="right_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-09"
+         width="128"
+         height="128"
+         x="128"
+         y="0"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect3-2-1"
+         width="128"
+         height="128"
+         x="128"
+         y="256"
+         inkscape:label="center_rect" />
+      <rect
+         style="fill:#4b0082;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
+         id="rect4-7"
+         width="128"
+         height="256"
+         x="256"
+         y="384"
+         inkscape:label="bottom_right_rect" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="text"
+     inkscape:highlight-color="#ffffff">
+    <g
+       id="layer2"
+       inkscape:label="arcadE"
+       transform="matrix(1,0,-0.19999999,1,2095.6,161)">
+      <rect
+         style="fill:#ffffff;stroke-width:1.58113"
+         id="rect1-7-3"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.41421"
+         id="rect3-9-0"
+         width="256"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.41421"
+         id="rect3-9-0-4"
+         width="256"
+         height="128"
+         x="701"
+         y="415"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-2-2-6"
+         width="128"
+         height="128"
+         x="701"
+         y="158.99998"
+         inkscape:label="center_rect" />
+    </g>
+    <g
+       id="layer2-6"
+       inkscape:label="arcaDe"
+       transform="matrix(1,0,-0.19999999,1,1583.6,161)">
+      <rect
+         style="fill:#ffffff;stroke-width:1.58113"
+         id="rect1-7-7"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.73655"
+         id="rect1-5-5-6"
+         width="128"
+         height="386"
+         x="829"
+         y="31"
+         inkscape:label="right_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-9-5"
+         width="128"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-2-2-69"
+         width="128"
+         height="128"
+         x="701"
+         y="415"
+         inkscape:label="bottom_rect" />
+    </g>
+    <g
+       id="layer2-61"
+       inkscape:label="arcAde"
+       transform="matrix(1,0,-0.19999999,1,540.90134,63.415363)">
+      <rect
+         style="fill:#ffffff;stroke-width:1.58113"
+         id="rect1-4"
+         width="128"
+         height="640"
+         x="1123.2156"
+         y="0.58463669"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.73205"
+         id="rect1-5-43"
+         width="128"
+         height="384"
+         x="1379.2156"
+         y="0.58463669"
+         inkscape:label="right_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-0"
+         width="128"
+         height="128"
+         x="1251.2156"
+         y="0.58463669"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-2-7"
+         width="128"
+         height="128"
+         x="1251.2156"
+         y="256.58466"
+         inkscape:label="center_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.01506"
+         id="rect4-8"
+         width="128"
+         height="256"
+         x="1379.2156"
+         y="384.58466"
+         inkscape:label="bottom_right_rect" />
+    </g>
+    <g
+       id="layer2-2"
+       inkscape:label="arCade"
+       transform="matrix(1,0,-0.19999999,1,559.59999,161)">
+      <rect
+         style="fill:#ffffff;stroke-width:1.58113"
+         id="rect1-3"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.41421"
+         id="rect3-1"
+         width="256"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.41421"
+         id="rect3-2-29"
+         width="256"
+         height="128"
+         x="701"
+         y="415"
+         inkscape:label="bottom_rect" />
+    </g>
+    <g
+       id="layer2-7"
+       inkscape:label="aRcade"
+       transform="matrix(1,0,-0.19999999,1,47.599995,161)">
+      <rect
+         style="fill:#ffffff;stroke-width:1.58113"
+         id="rect1-78"
+         width="128"
+         height="640"
+         x="573"
+         y="-97"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.41424"
+         id="rect1-5-4"
+         width="128"
+         height="256"
+         x="829"
+         y="-97"
+         inkscape:label="top_right_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.41424"
+         id="rect1-5-4-2"
+         width="128"
+         height="256"
+         x="829"
+         y="287"
+         inkscape:label="bottom_right_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-5"
+         width="128"
+         height="128"
+         x="701"
+         y="-97"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-2-0"
+         width="128"
+         height="128"
+         x="701"
+         y="159"
+         inkscape:label="center_rect" />
+    </g>
+    <g
+       inkscape:label="Arcade"
+       id="layer1"
+       transform="matrix(1,0,-0.19999999,1,127.99999,64)">
+      <rect
+         style="fill:#ffffff;stroke-width:1.58113"
+         id="rect1"
+         width="128"
+         height="640"
+         x="0"
+         y="0"
+         inkscape:label="left_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.73205"
+         id="rect1-5"
+         width="128"
+         height="384"
+         x="256"
+         y="0"
+         inkscape:label="right_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3"
+         width="128"
+         height="128"
+         x="128"
+         y="0"
+         inkscape:label="top_rect" />
+      <rect
+         style="fill:#ffffff"
+         id="rect3-2"
+         width="128"
+         height="128"
+         x="128"
+         y="256"
+         inkscape:label="center_rect" />
+      <rect
+         style="fill:#ffffff;stroke-width:1.01506"
+         id="rect4"
+         width="128"
+         height="256"
+         x="256"
+         y="384"
+         inkscape:label="bottom_right_rect" />
+    </g>
+  </g>
+</svg>

@@ -33,7 +33,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 	commands
 		.spawn((
 			SceneBundle {
-				scene: asset_server.load("map.glb#Scene0"),
+				scene: asset_server.load("map/map.glb#Scene0"),
 				..default()
 			},
 			OnGameScreen,
@@ -48,7 +48,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			Speed(0.25),
 			Health(4.0),
 			SceneBundle {
-				scene: asset_server.load("player.glb#Scene0"),
+				scene: asset_server.load("entity/player.glb#Scene0"),
 				..Default::default()
 			},
 			OnGameScreen,
@@ -59,7 +59,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		.spawn((
 			RigidBody::Fixed,
 			SceneBundle {
-				scene: asset_server.load("cannon.glb#Scene0"),
+				scene: asset_server.load("entity/cannon.glb#Scene0"),
 				transform: Transform::from_xyz(10.0, 0.0, 5.0),
 				..default()
 			},
