@@ -12,15 +12,14 @@ impl Plugin for Camera3dPlugin {
 }
 
 fn setup_camera3d(mut commands: Commands) {
-	commands
-		.spawn((
-			Camera3dBundle {
-				transform: Transform::from_xyz(-20.0, 10.0, 0.0).looking_at(Vec3::ZERO, Vec3::Y),
-				..default()
-			},
-			super::OnGameScreen,
-		))
-		.insert(Name::new("Camera"));
+	commands.spawn((
+		Name::new("Camera"),
+		Camera3dBundle {
+			transform: Transform::from_xyz(-20.0, 10.0, 0.0).looking_at(Vec3::ZERO, Vec3::Y),
+			..default()
+		},
+		super::OnGameScreen,
+	));
 }
 
 fn move_camera3d(

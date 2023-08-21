@@ -1,4 +1,4 @@
-use bevy::{prelude::*, render::render_resource::AsBindGroupShaderType, window::PrimaryWindow};
+use bevy::{prelude::*, window::PrimaryWindow};
 use bevy_rapier3d::prelude::*;
 
 use crate::{entity::*, AppState};

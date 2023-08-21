@@ -30,62 +30,60 @@ impl Plugin for GamePlugin {
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-	commands
-		.spawn((
-			SceneBundle {
-				scene: asset_server.load("map/map.glb#Scene0"),
-				..default()
-			},
-			OnGameScreen,
-		))
-		.insert(RigidBody::Fixed)
-		.insert(Collider::cuboid(50.0, 0.1, 50.0))
-		.insert(Name::new("Ground"));
-	commands
-		.spawn((
-			Player::new(100),
-			RigidBody::Dynamic,
-			Speed(0.25),
-			Health(4.0),
-			SceneBundle {
-				scene: asset_server.load("entity/player.glb#Scene0"),
-				..Default::default()
-			},
-			OnGameScreen,
-		))
-		.insert(Collider::cylinder(1.0, 0.75))
-		.insert(ColliderMassProperties::MassProperties(MassProperties {
+	commands.spawn((
+		Name::new("Ground"),
+		SceneBundle {
+			scene: asset_server.load("map/map.glb#Scene0"),
+			..default()
+		},
+		OnGameScreen,
+		RigidBody::Fixed,
+		Collider::cuboid(50.0, 0.1, 100.0),
+	));
+
+	commands.spawn((
+		Name::new("Player"),
+		Player::new(100),
+		RigidBody::Dynamic,
+		Speed(0.25),
+		Health(4.0),
+		SceneBundle {
+			scene: asset_server.load("entity/player.glb#Scene0"),
+			..Default::default()
+		},
+		OnGameScreen,
+		Collider::cylinder(1.0, 0.75),
+		ColliderMassProperties::MassProperties(MassProperties {
 			local_center_of_mass: Vec3::new(0., 0.125, 0.),
 			mass: 1.0,
 			..default()
-		}))
-		.insert(Velocity::zero())
-		.insert(Name::new("Player"));
-	commands
-		.spawn((
-			RigidBody::Fixed,
-			SceneBundle {
-				scene: asset_server.load("entity/cannon.glb#Scene0"),
-				transform: Transform::from_xyz(10.0, 0.0, 5.0),
-				..default()
-			},
-			OnGameScreen,
-		))
-		.insert(Collider::cuboid(4.0, 6.0, 6.0))
-		.insert(Name::new("Cannon"));
+		}),
+		Velocity::zero(),
+	));
 
-	commands
-		.spawn((
-			DirectionalLightBundle {
-				directional_light: DirectionalLight {
-					illuminance: 10000.0,
-					shadows_enabled: true,
-					..default()
-				},
-				transform: Transform::from_xyz(-1., 1., 1.).looking_at(Vec3::ZERO, Vec3::Y),
+	commands.spawn((
+		Name::new("Cannon"),
+		RigidBody::Fixed,
+		SceneBundle {
+			scene: asset_server.load("entity/cannon.glb#Scene0"),
+			transform: Transform::from_xyz(10.0, 0.0, 5.0),
+			..default()
+		},
+		Collider::cuboid(4.0, 6.0, 6.0),
+		OnGameScreen,
+	));
+
+	commands.spawn((
+		Name::new("Sun"),
+		DirectionalLightBundle {
+			directional_light: DirectionalLight {
+				illuminance: 10000.0,
+				shadows_enabled: true,
 				..default()
 			},
-			OnGameScreen,
-		))
-		.insert(Name::new("Sun"));
+			transform: Transform::from_xyz(-1., 1., 1.).looking_at(Vec3::ZERO, Vec3::Y),
+			..default()
+		},
+		OnGameScreen,
+	));
 }
