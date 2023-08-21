@@ -5,6 +5,7 @@ mod ui;
 use bevy::prelude::*;
 #[cfg(debug_assertions)]
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+#[cfg(debug_assertions)]
 use bevy_rapier3d::render::RapierDebugRenderPlugin;
 
 use self::{game::GamePlugin, ui::MenuPlugin};
