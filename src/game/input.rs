@@ -29,10 +29,10 @@ fn input(
 		let (x, z) = calc(vertical, horizontal, 4.0);
 		let mut velocity = velocities.single_mut();
 		if keyboard.pressed(KeyCode::W) {
-			velocity.linvel += Vec3::new(-x * speed, 0.0, z * speed);
+			velocity.linvel += Vec3::new(-x * speed * 5., 0.0, z * speed * 5.);
 		}
 		if keyboard.just_pressed(KeyCode::Space) {
-			velocity.linvel += Vec3::new(0., 7.5, 0.);
+			velocity.linvel += Vec3::new(0., 15., 0.);
 		}
 	}
 	for gamepad in gamepads.iter() {

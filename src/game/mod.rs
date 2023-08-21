@@ -55,9 +55,14 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		Collider::cylinder(1.0, 0.75),
 		ColliderMassProperties::MassProperties(MassProperties {
 			local_center_of_mass: Vec3::new(0., 0.125, 0.),
-			mass: 1.0,
+			mass: 75.0,
 			..default()
 		}),
+		Damping {
+			linear_damping: 5.0,
+			angular_damping: 0.,
+		},
+		GravityScale(2.0),
 		Velocity::zero(),
 	));
 
