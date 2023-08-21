@@ -27,9 +27,7 @@ fn move_camera3d(
 	mut camera_transforms: Query<&mut Transform, (With<Camera3d>, Without<Player>)>,
 	player_transforms: Query<&Transform, (With<Player>, Without<Camera3d>)>,
 ) {
-	if let Ok(mut camera_transform) = camera_transforms.get_single_mut() {
-		if let Ok(player_transform) = player_transforms.get_single() {
-			camera_transform.look_at(player_transform.translation, Vec3::Y);
-		}
-	}
+	let mut camera_transform = camera_transforms.single_mut();
+	let player_transform = player_transforms.single();
+	camera_transform.translation = player_transform.translation + Vec3::new(-20., 10., 0.);
 }

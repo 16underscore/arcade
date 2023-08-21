@@ -1,4 +1,5 @@
-use bevy::{prelude::*, window::PrimaryWindow};
+use bevy::{prelude::*, render::render_resource::AsBindGroupShaderType, window::PrimaryWindow};
+use bevy_rapier3d::prelude::*;
 
 use crate::{entity::*, AppState};
 
@@ -15,8 +16,8 @@ fn input(
 	axes: Res<Axis<GamepadAxis>>,
 	windows: Query<&Window, With<PrimaryWindow>>,
 	keyboard: Res<Input<KeyCode>>,
-	mut transforms: Query<&mut Transform, With<Player>>,
 	speeds: Query<&Speed, With<Player>>,
+	mut velocities: Query<&mut Velocity, With<Player>>,
 ) {
 	let window = windows.single();
 	let Speed(speed) = speeds.single();
@@ -26,11 +27,12 @@ fn input(
 		let horizontal = (position.x - halfwidth) / halfwidth;
 		let vertical = (position.y - halfheight) / halfheight;
 		let (x, z) = calc(vertical, horizontal, 4.0);
-		for mut transform in &mut transforms {
-			if keyboard.pressed(KeyCode::W) {
-				transform.translation.x -= x * speed;
-				transform.translation.z += z * speed;
-			}
+		let mut velocity = velocities.single_mut();
+		if keyboard.pressed(KeyCode::W) {
+			velocity.linvel += Vec3::new(-x * speed, 0.0, z * speed);
+		}
+		if keyboard.just_pressed(KeyCode::Space) {
+			velocity.linvel += Vec3::new(0., 7.5, 0.);
 		}
 	}
 	for gamepad in gamepads.iter() {
@@ -41,10 +43,8 @@ fn input(
 			.get(GamepadAxis::new(gamepad, GamepadAxisType::LeftStickY))
 			.unwrap_or_default();
 		let (x, z) = calc(left_stick_y, left_stick_x, 1.25);
-		for mut transform in &mut transforms {
-			transform.translation.x += x * speed;
-			transform.translation.z += z * speed;
-		}
+		let mut velocity = velocities.single_mut();
+		velocity.linvel = Vec3::new(x * speed * 50., 0.0, z * speed * 50.);
 	}
 }
 

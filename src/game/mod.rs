@@ -53,7 +53,13 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			},
 			OnGameScreen,
 		))
-		.insert(Collider::cylinder(1.0, 1.0))
+		.insert(Collider::cylinder(1.0, 0.75))
+		.insert(ColliderMassProperties::MassProperties(MassProperties {
+			local_center_of_mass: Vec3::new(0., 0.125, 0.),
+			mass: 1.0,
+			..default()
+		}))
+		.insert(Velocity::zero())
 		.insert(Name::new("Player"));
 	commands
 		.spawn((
@@ -65,7 +71,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 			},
 			OnGameScreen,
 		))
-		.insert(Collider::cuboid(2.0, 2.0, 2.0))
+		.insert(Collider::cuboid(4.0, 6.0, 6.0))
 		.insert(Name::new("Cannon"));
 
 	commands
