@@ -63,11 +63,7 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 		},
 		OnGameScreen,
 		Collider::cylinder(1., 0.75),
-		ColliderMassProperties::MassProperties(MassProperties {
-			local_center_of_mass: Vec3::new(0., 0.125, 0.),
-			mass: 75.,
-			..default()
-		}),
+		LockedAxes::ROTATION_LOCKED,
 		Damping {
 			linear_damping: 5.,
 			angular_damping: 0.,

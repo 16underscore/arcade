@@ -16,18 +16,16 @@ fn input(
 	axes: Res<Axis<GamepadAxis>>,
 	windows: Query<&Window, With<PrimaryWindow>>,
 	keyboard: Res<Input<KeyCode>>,
-	speeds: Query<&Speed, With<Player>>,
-	mut velocities: Query<&mut Velocity, With<Player>>,
+	mut players: Query<(&Speed, &mut Velocity), With<Player>>,
 ) {
 	let window = windows.single();
-	let Speed(speed) = speeds.single();
 	if let Some(position) = window.cursor_position() {
 		let halfwidth = window.width() / 2.0;
 		let halfheight = window.height() / 2.0;
 		let horizontal = (position.x - halfwidth) / halfwidth;
 		let vertical = (position.y - halfheight) / halfheight;
 		let (x, z) = calc(vertical, horizontal, 4.0);
-		let mut velocity = velocities.single_mut();
+		let (Speed(speed), mut velocity) = players.single_mut();
 		if keyboard.pressed(KeyCode::W) {
 			velocity.linvel += Vec3::new(-x * speed * 5., 0.0, z * speed * 5.);
 		}
@@ -43,7 +41,7 @@ fn input(
 			.get(GamepadAxis::new(gamepad, GamepadAxisType::LeftStickY))
 			.unwrap_or_default();
 		let (x, z) = calc(left_stick_y, left_stick_x, 1.25);
-		let mut velocity = velocities.single_mut();
+		let (Speed(speed), mut velocity) = players.single_mut();
 		velocity.linvel = Vec3::new(x * speed * 50., 0.0, z * speed * 50.);
 	}
 }
