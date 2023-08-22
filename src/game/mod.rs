@@ -1,3 +1,4 @@
+mod asset;
 mod camera;
 mod input;
 
@@ -6,6 +7,7 @@ use bevy_rapier3d::prelude::*;
 
 use crate::entity::*;
 
+use self::asset::{GameAssetPlugin, GameAssets};
 use self::camera::Camera3dPlugin;
 use self::input::InputPlugin;
 
@@ -21,7 +23,9 @@ impl Plugin for GamePlugin {
 		app.add_plugins(RapierPhysicsPlugin::<NoUserData>::default())
 			.add_plugins(Camera3dPlugin)
 			.add_plugins(InputPlugin)
+			.add_plugins(GameAssetPlugin)
 			.add_systems(OnEnter(AppState::Game), setup)
+			.add_systems(Update, respawn.run_if(in_state(AppState::Game)))
 			.add_systems(
 				OnExit(AppState::Game),
 				super::despawn_screen::<OnGameScreen>,
@@ -29,16 +33,22 @@ impl Plugin for GamePlugin {
 	}
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Assets<Mesh>>) {
 	commands.spawn((
 		Name::new("Ground"),
 		SceneBundle {
-			scene: asset_server.load("map/map.glb#Scene0"),
+			scene: game_assets.scene.map.clone_weak(),
 			..default()
 		},
 		OnGameScreen,
 		RigidBody::Fixed,
-		Collider::cuboid(50.0, 0.1, 100.0),
+		Collider::from_bevy_mesh(
+			meshes
+				.get(&game_assets.mesh.map)
+				.expect("game assets not loaded"),
+			&ComputedColliderShape::ConvexHull,
+		)
+		.expect("meshes not loaded"),
 	));
 
 	commands.spawn((
@@ -46,23 +56,23 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		Player::new(100),
 		RigidBody::Dynamic,
 		Speed(0.25),
-		Health(4.0),
+		Health(4.),
 		SceneBundle {
-			scene: asset_server.load("entity/player.glb#Scene0"),
+			scene: game_assets.scene.player.clone_weak(),
 			..Default::default()
 		},
 		OnGameScreen,
-		Collider::cylinder(1.0, 0.75),
+		Collider::cylinder(1., 0.75),
 		ColliderMassProperties::MassProperties(MassProperties {
 			local_center_of_mass: Vec3::new(0., 0.125, 0.),
-			mass: 75.0,
+			mass: 75.,
 			..default()
 		}),
 		Damping {
-			linear_damping: 5.0,
+			linear_damping: 5.,
 			angular_damping: 0.,
 		},
-		GravityScale(2.0),
+		GravityScale(4.),
 		Velocity::zero(),
 	));
 
@@ -70,11 +80,11 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		Name::new("Cannon"),
 		RigidBody::Fixed,
 		SceneBundle {
-			scene: asset_server.load("entity/cannon.glb#Scene0"),
-			transform: Transform::from_xyz(10.0, 0.0, 5.0),
+			scene: game_assets.scene.cannon.clone_weak(),
+			transform: Transform::from_xyz(10., 0., 5.),
 			..default()
 		},
-		Collider::cuboid(4.0, 6.0, 6.0),
+		Collider::cuboid(4., 6., 6.),
 		OnGameScreen,
 	));
 
@@ -82,7 +92,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		Name::new("Sun"),
 		DirectionalLightBundle {
 			directional_light: DirectionalLight {
-				illuminance: 10000.0,
+				illuminance: 10000.,
 				shadows_enabled: true,
 				..default()
 			},
@@ -91,4 +101,11 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 		},
 		OnGameScreen,
 	));
+}
+
+fn respawn(mut players: Query<&mut Transform, With<Player>>) {
+	let mut transform = players.single_mut();
+	if transform.translation.y < -5. {
+		transform.translation = Vec3::new(0., 0., 0.);
+	}
 }
