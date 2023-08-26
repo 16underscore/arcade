@@ -1,5 +1,6 @@
 mod asset;
 mod camera;
+mod event;
 mod input;
 
 use bevy::prelude::*;
@@ -10,6 +11,7 @@ use crate::map::MapBundle;
 
 use self::asset::{GameAssetPlugin, GameAssets};
 use self::camera::Camera3dPlugin;
+use self::event::{EventPlugin, PlayerInBaseEvent, RespawnEvent};
 use self::input::InputPlugin;
 
 use super::AppState;
@@ -25,8 +27,12 @@ impl Plugin for GamePlugin {
 			.add_plugins(Camera3dPlugin)
 			.add_plugins(InputPlugin)
 			.add_plugins(GameAssetPlugin)
+			.add_plugins(EventPlugin)
 			.add_systems(OnEnter(AppState::Game), setup)
-			.add_systems(Update, respawn.run_if(in_state(AppState::Game)))
+			.add_systems(
+				Update,
+				(player_in_base, respawn).run_if(in_state(AppState::Game)),
+			)
 			.add_systems(
 				OnExit(AppState::Game),
 				super::despawn_screen::<OnGameScreen>,
@@ -75,9 +81,19 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 	));
 }
 
-fn respawn(mut players: Query<&mut Transform, With<Player>>) {
-	let mut transform = players.single_mut();
-	if transform.translation.y < -5. {
-		transform.translation = Vec3::new(0., 0.125, 0.);
+fn player_in_base(mut player_in_base_event: EventReader<PlayerInBaseEvent>) {
+	if !player_in_base_event.is_empty() {
+		println!("player in base");
+		player_in_base_event.clear();
+	}
+}
+fn respawn(
+	mut respawn_event: EventReader<RespawnEvent>,
+	mut players: Query<&mut Transform, With<Player>>,
+) {
+	if !respawn_event.is_empty() {
+		let mut transform = players.single_mut();
+		transform.translation = Vec3::Y;
+		respawn_event.clear();
 	}
 }

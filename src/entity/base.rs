@@ -6,6 +6,7 @@ use crate::game::OnGameScreen;
 #[derive(Bundle)]
 pub struct BaseBundle {
 	name: Name,
+	base: Base,
 	scene_bundle: SceneBundle,
 	game: OnGameScreen,
 	rigid_body: RigidBody,
@@ -15,6 +16,7 @@ impl BaseBundle {
 	pub fn new(number: usize, position: Vec3, scene: Handle<Scene>) -> Self {
 		Self {
 			name: Name::new(format!("Base {}", number)),
+			base: Base,
 			scene_bundle: SceneBundle {
 				scene,
 				transform: Transform::from_translation(position),
