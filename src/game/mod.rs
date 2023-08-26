@@ -6,6 +6,7 @@ use bevy::prelude::*;
 use bevy_rapier3d::prelude::*;
 
 use crate::entity::*;
+use crate::map::MapBundle;
 
 use self::asset::{GameAssetPlugin, GameAssets};
 use self::camera::Camera3dPlugin;
@@ -34,55 +35,30 @@ impl Plugin for GamePlugin {
 }
 
 fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Assets<Mesh>>) {
-	commands.spawn((
-		Name::new("Ground"),
-		SceneBundle {
-			scene: game_assets.scene.map.clone_weak(),
-			..default()
-		},
-		OnGameScreen,
-		RigidBody::Fixed,
-		Collider::from_bevy_mesh(
-			meshes
-				.get(&game_assets.mesh.map)
-				.expect("game assets not loaded"),
-			&ComputedColliderShape::ConvexHull,
-		)
-		.expect("meshes not loaded"),
+	commands.spawn(MapBundle::new(
+		game_assets.scene.map.clone_weak(),
+		meshes
+			.get(&game_assets.mesh.map)
+			.expect("game assets not loaded"),
 	));
 
-	commands.spawn((
-		Name::new("Player"),
-		Player::new(100),
-		RigidBody::Dynamic,
-		Speed(1.),
-		Health(4.),
-		SceneBundle {
-			scene: game_assets.scene.player.clone_weak(),
-			..Default::default()
-		},
-		OnGameScreen,
-		Collider::cylinder(1., 0.75),
-		LockedAxes::ROTATION_LOCKED,
-		Damping {
-			linear_damping: 5.,
-			angular_damping: 0.,
-		},
-		GravityScale(4.),
-		Velocity::zero(),
-	));
+	for i in 0..4 {
+		let position = match i {
+			0 => Vec3::new(-30., 0., -30.),
+			1 => Vec3::new(-30., 0., 30.),
+			2 => Vec3::new(30., 0., -30.),
+			3 => Vec3::new(30., 0., 30.),
+			_ => Vec3::default(),
+		};
 
-	commands.spawn((
-		Name::new("Cannon"),
-		RigidBody::Fixed,
-		SceneBundle {
-			scene: game_assets.scene.cannon.clone_weak(),
-			transform: Transform::from_xyz(10., 0., 5.),
-			..default()
-		},
-		Collider::cuboid(4., 6., 6.),
-		OnGameScreen,
-	));
+		commands.spawn(BaseBundle::new(
+			i,
+			position,
+			game_assets.scene.base.clone_weak(),
+		));
+	}
+
+	commands.spawn(PlayerBundle::new(game_assets.scene.player.clone_weak()));
 
 	commands.spawn((
 		Name::new("Sun"),

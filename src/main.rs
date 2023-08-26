@@ -1,5 +1,6 @@
 mod entity;
 mod game;
+mod map;
 mod ui;
 
 use bevy::prelude::*;

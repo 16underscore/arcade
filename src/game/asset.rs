@@ -9,6 +9,7 @@ pub struct GameAssets {
 }
 
 pub struct Scenes {
+	pub base: Handle<Scene>,
 	pub cannon: Handle<Scene>,
 	pub map: Handle<Scene>,
 	pub player: Handle<Scene>,
@@ -27,6 +28,7 @@ impl Plugin for GameAssetPlugin {
 fn load(mut commands: Commands, asset_server: Res<AssetServer>) {
 	let assets = GameAssets {
 		scene: Scenes {
+			base: asset_server.load("entity/base.glb#Scene0"),
 			cannon: asset_server.load("entity/cannon.glb#Scene0"),
 			map: asset_server.load("map/map.glb#Scene0"),
 			player: asset_server.load("entity/player.glb#Scene0"),
