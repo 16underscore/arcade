@@ -55,7 +55,7 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 		Name::new("Player"),
 		Player::new(100),
 		RigidBody::Dynamic,
-		Speed(0.25),
+		Speed(1.),
 		Health(4.),
 		SceneBundle {
 			scene: game_assets.scene.player.clone_weak(),
@@ -102,6 +102,6 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 fn respawn(mut players: Query<&mut Transform, With<Player>>) {
 	let mut transform = players.single_mut();
 	if transform.translation.y < -5. {
-		transform.translation = Vec3::new(0., 0., 0.);
+		transform.translation = Vec3::new(0., 0.125, 0.);
 	}
 }

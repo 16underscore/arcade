@@ -16,21 +16,21 @@ fn input(
 	axes: Res<Axis<GamepadAxis>>,
 	windows: Query<&Window, With<PrimaryWindow>>,
 	keyboard: Res<Input<KeyCode>>,
-	mut players: Query<(&Speed, &mut Velocity), With<Player>>,
+	mut players: Query<(&Speed, &mut Velocity, &mut Transform), With<Player>>,
 ) {
 	let window = windows.single();
+	let (speed, mut velocity, mut transform) = players.single_mut();
 	if let Some(position) = window.cursor_position() {
-		let halfwidth = window.width() / 2.0;
-		let halfheight = window.height() / 2.0;
-		let horizontal = (position.x - halfwidth) / halfwidth;
-		let vertical = (position.y - halfheight) / halfheight;
-		let (x, z) = calc(vertical, horizontal, 4.0);
-		let (Speed(speed), mut velocity) = players.single_mut();
+		let x = position.x - window.width() / 2.;
+		let z = position.y - window.height() / 2.;
+		let direction = Vec3::new(x, 0., z).clamp_length(-speed.0, speed.0);
+		let pos = transform.translation;
+		transform.look_at(pos + direction, Vec3::Y);
 		if keyboard.pressed(KeyCode::W) {
-			velocity.linvel += Vec3::new(-x * speed * 5., 0.0, z * speed * 5.);
+			velocity.linvel += Vec3::new(-direction.z, 0., direction.x);
 		}
 		if keyboard.just_pressed(KeyCode::Space) {
-			velocity.linvel += Vec3::new(0., 15., 0.);
+			velocity.linvel += Vec3::Y;
 		}
 	}
 	for gamepad in gamepads.iter() {
@@ -40,17 +40,6 @@ fn input(
 		let left_stick_y = axes
 			.get(GamepadAxis::new(gamepad, GamepadAxisType::LeftStickY))
 			.unwrap_or_default();
-		let (x, z) = calc(left_stick_y, left_stick_x, 1.25);
-		let (Speed(speed), mut velocity) = players.single_mut();
-		velocity.linvel = Vec3::new(x * speed * 50., 0.0, z * speed * 50.);
+		let _direction = Vec3::new(left_stick_x, 0., left_stick_y).clamp_length(-speed.0, speed.0);
 	}
-}
-
-fn calc(v: f32, h: f32, cursor_speed_distance: f32) -> (f32, f32) {
-	let a = v * cursor_speed_distance;
-	let b = h * cursor_speed_distance;
-	let m = if a < 0.0 { -1.0 } else { 1.0 };
-	let n = if b < 0.0 { -1.0 } else { 1.0 };
-	let x = f32::max(m * a, n * b).min(1.0) / (m * a + n * b);
-	(x * a, x * b)
 }
