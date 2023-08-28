@@ -2,6 +2,7 @@ mod asset;
 mod camera;
 mod event;
 mod input;
+mod shop;
 
 use bevy::prelude::*;
 use bevy_rapier3d::prelude::*;
@@ -29,10 +30,7 @@ impl Plugin for GamePlugin {
 			.add_plugins(GameAssetPlugin)
 			.add_plugins(EventPlugin)
 			.add_systems(OnEnter(AppState::Game), setup)
-			.add_systems(
-				Update,
-				(enter_base, respawn).run_if(in_state(AppState::Game)),
-			)
+			.add_systems(Update, (in_base, respawn).run_if(in_state(AppState::Game)))
 			.add_systems(
 				OnExit(AppState::Game),
 				super::despawn_screen::<OnGameScreen>,
@@ -83,8 +81,9 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 
 fn in_base(bases: Query<&Name, With<Base>>, mut in_base: EventReader<InBaseEvent>) {
 	if let Some(in_base_event) = in_base.iter().next() {
-		if let Ok(base_name) = bases.get_component::<Name>(in_base_event.base_entity) {
-			info!("{}", base_name);
+		match bases.get_component::<Name>(in_base_event.base_entity) {
+			Ok(base_name) => info!("{}", base_name),
+			Err(e) => error!("{}", e),
 		}
 	}
 }

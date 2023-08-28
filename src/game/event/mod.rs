@@ -1,5 +1,5 @@
 mod player_base;
-use player_base::base_events;
+use player_base::in_base_event;
 pub use player_base::InBaseEvent;
 
 mod respawn;
@@ -18,7 +18,7 @@ impl Plugin for EventPlugin {
 			.add_event::<RespawnEvent>()
 			.add_systems(
 				Update,
-				(base_events, respawn).run_if(in_state(AppState::Game)),
+				(in_base_event, respawn).run_if(in_state(AppState::Game)),
 			);
 	}
 }
