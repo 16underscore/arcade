@@ -11,7 +11,7 @@ use crate::map::MapBundle;
 
 use self::asset::{GameAssetPlugin, GameAssets};
 use self::camera::Camera3dPlugin;
-use self::event::{EventPlugin, PlayerInBaseEvent, RespawnEvent};
+use self::event::*;
 use self::input::InputPlugin;
 
 use super::AppState;
@@ -31,7 +31,7 @@ impl Plugin for GamePlugin {
 			.add_systems(OnEnter(AppState::Game), setup)
 			.add_systems(
 				Update,
-				(player_in_base, respawn).run_if(in_state(AppState::Game)),
+				(enter_base, respawn).run_if(in_state(AppState::Game)),
 			)
 			.add_systems(
 				OnExit(AppState::Game),
@@ -81,12 +81,14 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 	));
 }
 
-fn player_in_base(mut player_in_base_event: EventReader<PlayerInBaseEvent>) {
-	if !player_in_base_event.is_empty() {
-		println!("player in base");
-		player_in_base_event.clear();
+fn in_base(bases: Query<&Name, With<Base>>, mut in_base: EventReader<InBaseEvent>) {
+	if let Some(in_base_event) = in_base.iter().next() {
+		if let Ok(base_name) = bases.get_component::<Name>(in_base_event.base_entity) {
+			info!("{}", base_name);
+		}
 	}
 }
+
 fn respawn(
 	mut respawn_event: EventReader<RespawnEvent>,
 	mut players: Query<&mut Transform, With<Player>>,

@@ -30,3 +30,6 @@ impl BaseBundle {
 
 #[derive(Component)]
 pub struct Base;
+
+#[derive(Component)]
+pub struct Plot;
