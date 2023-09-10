@@ -4,9 +4,25 @@ name = "arcade"
 version = "0.1.0"
 
 [dependencies]
-bevy = { features = ["dynamic_linking"], version = "*" }
 bevy-inspector-egui = "*"
 bevy_rapier3d = "*"
+
+[dependencies.bevy]
+default-features = false
+features = [
+"bevy_gltf",
+"bevy_ui",
+"bevy_winit",
+"default_font",
+"dynamic_linking",
+"ktx2",
+"png",
+"multi-threaded",
+"tonemapping_luts",
+"x11",
+"zstd"
+]
+version = "*"
 
 [profile.dev]
 opt-level = 1

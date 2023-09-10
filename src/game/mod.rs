@@ -79,12 +79,24 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 	));
 }
 
-fn in_base(bases: Query<&Name, With<Base>>, mut in_base: EventReader<InBaseEvent>) {
-	if let Some(in_base_event) = in_base.iter().next() {
-		match bases.get_component::<Name>(in_base_event.base_entity) {
-			Ok(base_name) => info!("{}", base_name),
+fn in_base(
+	bases: Query<&Name, With<Base>>,
+	mut enter_base: EventReader<EnterBaseEvent>,
+	mut exit_base: EventReader<ExitBaseEvent>,
+) {
+	if let Some(enter_base_event) = enter_base.iter().next() {
+		match bases.get_component::<Name>(enter_base_event.base_entity) {
+			Ok(base_name) => info!("Enter {}", base_name),
 			Err(e) => error!("{}", e),
 		}
+		enter_base.clear();
+	}
+	if let Some(exit_base_event) = exit_base.iter().next() {
+		match bases.get_component::<Name>(exit_base_event.base_entity) {
+			Ok(base_name) => info!("Exit {}", base_name),
+			Err(e) => error!("{}", e),
+		}
+		exit_base.clear();
 	}
 }
 

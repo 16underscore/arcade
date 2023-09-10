@@ -1,6 +1,8 @@
 mod player_base;
-use player_base::in_base_event;
-pub use player_base::InBaseEvent;
+use std::time::Duration;
+
+use player_base::{base_events, Entered, RunCheck};
+pub use player_base::{EnterBaseEvent, ExitBaseEvent, InBaseEvent};
 
 mod respawn;
 use respawn::respawn;
@@ -14,11 +16,17 @@ pub struct EventPlugin;
 
 impl Plugin for EventPlugin {
 	fn build(&self, app: &mut App) {
-		app.add_event::<InBaseEvent>()
-			.add_event::<RespawnEvent>()
-			.add_systems(
-				Update,
-				(in_base_event, respawn).run_if(in_state(AppState::Game)),
-			);
+		app.insert_resource(RunCheck {
+			timer: Timer::new(Duration::from_secs_f32(0.5), TimerMode::Repeating),
+		})
+		.insert_resource(Entered { base_entity: None })
+		.add_event::<EnterBaseEvent>()
+		.add_event::<ExitBaseEvent>()
+		.add_event::<InBaseEvent>()
+		.add_event::<RespawnEvent>()
+		.add_systems(
+			Update,
+			(base_events, respawn).run_if(in_state(AppState::Game)),
+		);
 	}
 }
