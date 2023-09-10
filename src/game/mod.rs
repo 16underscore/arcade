@@ -30,7 +30,7 @@ impl Plugin for GamePlugin {
 			.add_plugins(GameAssetPlugin)
 			.add_plugins(EventPlugin)
 			.add_systems(OnEnter(AppState::Game), setup)
-			.add_systems(Update, (in_base, respawn).run_if(in_state(AppState::Game)))
+			.add_systems(Update, (base, respawn).run_if(in_state(AppState::Game)))
 			.add_systems(
 				OnExit(AppState::Game),
 				super::despawn_screen::<OnGameScreen>,
@@ -79,24 +79,22 @@ fn setup(mut commands: Commands, game_assets: Res<GameAssets>, meshes: Res<Asset
 	));
 }
 
-fn in_base(
-	bases: Query<&Name, With<Base>>,
+fn base(
+	mut commands: Commands,
 	mut enter_base: EventReader<EnterBaseEvent>,
 	mut exit_base: EventReader<ExitBaseEvent>,
 ) {
 	if let Some(enter_base_event) = enter_base.iter().next() {
-		match bases.get_component::<Name>(enter_base_event.base_entity) {
-			Ok(base_name) => info!("Enter {}", base_name),
-			Err(e) => error!("{}", e),
-		}
-		enter_base.clear();
+		commands
+			.entity(enter_base_event.base_entity)
+			.with_children(|parent| {
+				parent.spawn(Border);
+			});
 	}
 	if let Some(exit_base_event) = exit_base.iter().next() {
-		match bases.get_component::<Name>(exit_base_event.base_entity) {
-			Ok(base_name) => info!("Exit {}", base_name),
-			Err(e) => error!("{}", e),
-		}
-		exit_base.clear();
+		commands
+			.entity(exit_base_event.base_entity)
+			.remove::<Border>();
 	}
 }
 

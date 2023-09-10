@@ -1,5 +1,5 @@
 mod base;
-pub use base::{Base, BaseBundle, Plot};
+pub use base::{Base, BaseBundle, Border, Plot};
 
 mod player;
 pub use player::{Player, PlayerBundle};

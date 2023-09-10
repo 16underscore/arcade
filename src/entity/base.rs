@@ -32,4 +32,7 @@ impl BaseBundle {
 pub struct Base;
 
 #[derive(Component)]
+pub struct Border;
+
+#[derive(Component)]
 pub struct Plot;
